@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_21_172332) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_21_194732) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_172332) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "favourite_meals", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "meal_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meal_id"], name: "index_favourite_meals_on_meal_id"
+    t.index ["user_id"], name: "index_favourite_meals_on_user_id"
+  end
+
   create_table "meal_ingredients", force: :cascade do |t|
     t.bigint "meal_id", null: false
     t.string "name"
@@ -30,6 +39,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_172332) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["meal_id"], name: "index_meal_ingredients_on_meal_id"
+  end
+
+  create_table "meal_reviews", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "meal_id", null: false
+    t.integer "rating"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meal_id"], name: "index_meal_reviews_on_meal_id"
+    t.index ["user_id"], name: "index_meal_reviews_on_user_id"
   end
 
   create_table "meals", force: :cascade do |t|
@@ -53,6 +72,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_172332) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "favourite_meals", "meals"
+  add_foreign_key "favourite_meals", "users"
   add_foreign_key "meal_ingredients", "meals"
+  add_foreign_key "meal_reviews", "meals"
+  add_foreign_key "meal_reviews", "users"
   add_foreign_key "meals", "categories"
 end

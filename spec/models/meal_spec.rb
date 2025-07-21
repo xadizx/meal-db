@@ -6,6 +6,8 @@ RSpec.describe Meal, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:category).inverse_of(:meals) }
     it { is_expected.to have_many(:meal_ingredients).dependent(:destroy).inverse_of(:meal) }
+    it { is_expected.to have_many(:meal_reviews).dependent(:destroy) }
+    it { is_expected.to have_many(:favourite_meals).dependent(:destroy) }
   end
 
   describe "validations" do
