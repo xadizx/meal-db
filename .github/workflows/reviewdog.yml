@@ -1,0 +1,18 @@
+name: reviewdog
+on: [pull_request]
+jobs:
+  reek:
+    name: runner / reek
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1.247.0
+        with:
+          ruby-version: 3.4.4
+          bundler-cache: true
+      - name: reek
+        uses: reviewdog/action-reek@v1.19.2
+        with:
+          reek_version: gemfile
+          reporter: github-pr-check

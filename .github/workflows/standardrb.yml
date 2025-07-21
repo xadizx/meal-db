@@ -1,0 +1,24 @@
+name: StandardRB
+on: [push]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  standardrb:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+      - name: Set up Ruby 3.4.4
+        uses: ruby/setup-ruby@v1.247.0
+        with:
+          ruby-version: 3.4.4
+          bundler-cache: true
+      - name: Install compatible standard-performance version
+        run: gem install standard-performance -v 1.8.0
+      - name: Install StandardRB
+        run: gem install standard -v 1.49.0
+      - name: Run linter
+        run: standardrb --format simple --force-exclusion

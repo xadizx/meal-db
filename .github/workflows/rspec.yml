@@ -1,0 +1,37 @@
+name: RSpec
+on: [push]
+
+jobs:
+  run-rspec-tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: runner
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: meal_ideas_generator_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1.247.0
+        with:
+          ruby-version: 3.4.4
+          bundler-cache: true
+      - name: Install PostgreSQL
+        run: sudo apt-get -yqq install libpq-dev
+      - name: Setup Database
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgresql://runner@localhost:5432/meal_ideas_generator_test
+        run: bundle exec rails db:setup
+      - name: Run tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgresql://runner@localhost:5432/meal_ideas_generator_test
+        run: bundle exec rspec
