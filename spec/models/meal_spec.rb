@@ -1,10 +1,11 @@
 require "rails_helper"
 
 RSpec.describe Meal, type: :model do
-  subject { create(:meal) }
+  subject { build(:meal) }
 
   describe "associations" do
-    it { is_expected.to belong_to(:category) }
+    it { is_expected.to belong_to(:category).inverse_of(:meals) }
+    it { is_expected.to have_many(:meal_ingredients).dependent(:destroy).inverse_of(:meal) }
   end
 
   describe "validations" do

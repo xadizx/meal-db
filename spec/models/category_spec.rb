@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Category, type: :model do
-  subject { create(:category) }
+  subject { build(:category) }
 
   describe "associations" do
     it { is_expected.to have_many(:meals).dependent(:nullify).inverse_of(:category) }
