@@ -4,4 +4,6 @@ class Category < ApplicationRecord
   validates :external_id, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: true
   validates :thumbnail_url, :description, presence: true
+
+  scope :ordered, -> { order(name: :asc) }
 end
