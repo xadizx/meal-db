@@ -1,24 +1,38 @@
-# README
+# 🍽️ Random Meal Idea Generator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A web application built with Ruby on Rails to help users decide what to cook. Users can generate random meals, browse recipes, save favorites, and rate dishes.
 
-Things you may want to cover:
+---
 
-* Ruby version
+## 🛠 Tech Stack
 
-* System dependencies
+- **Ruby**: 3.4.4
+- **Rails**: 8.0.2
+- **Database**: PostgreSQL
+- **Authentication**: Devise
+- **Frontend**: Hotwire (Turbo + Stimulus)
+- **HTTP Requests**: Faraday
+- **Testing**: RSpec
 
-* Configuration
+---
 
-* Database creation
+## 🚀 Features
 
-* Database initialization
+---
 
-* How to run the test suite
+## 🧪 Running Locally
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+# Clone the project
+git clone git@github.com:xadizx/meal-db.git
+cd meal_ideas_generator
 
-* Deployment instructions
+# Install dependencies
+bundle install
 
-* ...
+# Set up the database
+rails db:setup
+
+# Run the server
+bin/dev
+```

@@ -24,7 +24,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 group :development, :test do
   gem "brakeman", require: false
   gem "bullet"
-  gem "dotenv"
+  gem "dotenv-rails"
   gem "pry"
   gem "pry-rails"
   gem "pry-remote"
