@@ -1,4 +1,4 @@
-class AreasGetter < ApplicationService
+class AreaGetter < ApplicationService
   PATH = "list.php?a=list"
   CACHE_KEY = "areas_list"
   CACHE_EXPIRY = 24.hours
