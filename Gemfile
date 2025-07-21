@@ -9,6 +9,7 @@ gem "draper"
 gem "dry-struct"
 gem "faraday"
 gem "importmap-rails"
+gem "mission_control-jobs"
 gem "kamal", require: false
 gem "pg", "~> 1.5.9"
 gem "propshaft"
