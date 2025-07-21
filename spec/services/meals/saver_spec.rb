@@ -4,6 +4,6 @@ RSpec.describe Meals::Saver do
   describe "#call" do
     subject { described_class.call }
 
-    # TODO: Add tests
+    # TODO: Add specs
   end
 end
