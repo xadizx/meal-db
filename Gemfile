@@ -26,9 +26,11 @@ group :development, :test do
   gem "brakeman", require: false
   gem "bullet"
   gem "dotenv-rails"
+  gem "faker"
   gem "pry"
   gem "pry-rails"
   gem "pry-remote"
+  gem "shoulda-matchers"
 end
 
 group :development do
@@ -39,7 +41,5 @@ end
 
 group :test do
   gem "factory_bot_rails"
-  gem "faker"
   gem "rspec-rails"
-  gem "shoulda-matchers"
 end
