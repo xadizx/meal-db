@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe CategoryImporter do
+RSpec.describe Categories::Importer do
   describe "#call" do
     subject { described_class.call }
 

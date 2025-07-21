@@ -3,9 +3,11 @@ source "https://rubygems.org"
 ruby "3.4.4"
 gem "rails", "~> 8.0.2"
 
+gem "activerecord-import"
 gem "bootsnap", require: false
 gem "devise"
 gem "draper"
+gem "dry-struct"
 gem "faraday"
 gem "importmap-rails"
 gem "mission_control-jobs"

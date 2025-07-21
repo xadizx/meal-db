@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe AreaGetter do
+RSpec.describe Areas::Getter do
   describe "#call" do
     subject { described_class.call }
 

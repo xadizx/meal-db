@@ -4,5 +4,9 @@ class Meal < ApplicationRecord
 
   validates :external_id, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: true
-  validates :thumbnail_url, :tags, :instructions, :area, presence: true
+  validates :thumbnail_url, :instructions, :area, presence: true
+
+  def self.find_by_external_id(external_id)
+    find_by(external_id: external_id)
+  end
 end
