@@ -6,7 +6,6 @@ gem "rails", "~> 8.0.2"
 gem "bootsnap", require: false
 gem "devise"
 gem "draper"
-gem "dry-struct"
 gem "faraday"
 gem "importmap-rails"
 gem "mission_control-jobs"
@@ -31,6 +30,7 @@ group :development, :test do
   gem "pry-rails"
   gem "pry-remote"
   gem "shoulda-matchers"
+  gem "vcr"
 end
 
 group :development do
@@ -42,4 +42,5 @@ end
 group :test do
   gem "factory_bot_rails"
   gem "rspec-rails"
+  gem "webmock"
 end
