@@ -19,7 +19,7 @@ module Meals
         MealThumbnail.new(
           external_id: meal["idMeal"].to_i,
           name: meal["strMeal"],
-          thumbnail_url: meal["strMealThumb"]
+          thumbnail_image_url: meal["strMealThumb"]
         )
       end
     end

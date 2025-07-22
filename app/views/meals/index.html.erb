@@ -1,3 +1,10 @@
 <% content_for :title do %>
-  The Meal DB
+  Favourite Meals
 <% end %>
+<div class="mx-auto max-w-2xl lg:max-w-7xl">
+  <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+    <% @thumbnails.each do |thumbnail| %>
+      <%= render(MealThumbnailComponent.new(meal_thumbnail: thumbnail)) %>
+    <% end %>
+  </div>
+</div>

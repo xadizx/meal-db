@@ -7,5 +7,5 @@ class Meal < ApplicationRecord
   has_many :favourite_meals, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
-  validates :thumbnail_url, :instructions, :area, presence: true
+  validates :thumbnail_image_url, :instructions, :area, presence: true
 end

@@ -2,7 +2,7 @@ class MealsController < ApplicationController
   include AuthenticatedAccess
 
   def index
-    # Favourite meals
+    @thumbnails = current_user.favourited_meals.decorate.map(&:to_thumbnail)
   end
 
   def show

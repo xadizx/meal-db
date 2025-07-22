@@ -4,7 +4,7 @@ class Category < ApplicationRecord
   has_many :meals, inverse_of: :category, dependent: :nullify
 
   validates :name, presence: true, uniqueness: true
-  validates :thumbnail_url, :description, presence: true
+  validates :thumbnail_image_url, :description, presence: true
 
   scope :ordered, -> { order(name: :asc) }
 end

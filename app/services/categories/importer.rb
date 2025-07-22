@@ -24,7 +24,7 @@ module Categories
     def find_or_create_category!(api_category)
       Category.find_or_initialize_by(external_id: api_category["idCategory"]).tap do |category|
         category.name = api_category["strCategory"]
-        category.thumbnail_url = api_category["strCategoryThumb"]
+        category.thumbnail_image_url = api_category["strCategoryThumb"]
         category.description = api_category["strCategoryDescription"]
         category.save!
       end

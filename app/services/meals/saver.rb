@@ -20,7 +20,7 @@ module Meals
       Meal.create!(
         external_id: meal_details["idMeal"],
         name: meal_details["strMeal"],
-        thumbnail_url: meal_details["strMealThumb"],
+        thumbnail_image_url: meal_details["strMealThumb"],
         tags: meal_details["strTags"],
         instructions: meal_details["strInstructions"],
         area: meal_details["strArea"],
