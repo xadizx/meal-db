@@ -23,6 +23,7 @@ development:
 test:
   <<: *default
   database: meal_ideas_generator_test
+  url: <%= ENV.fetch("DATABASE_URL") %>
 
 production:
   primary: &primary_production
