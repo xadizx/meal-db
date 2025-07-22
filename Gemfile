@@ -5,6 +5,7 @@ gem "rails", "~> 8.0.2"
 
 gem "activerecord-import"
 gem "bootsnap", require: false
+gem "dotenv"
 gem "devise"
 gem "draper"
 gem "dry-struct"
@@ -28,7 +29,6 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 group :development, :test do
   gem "brakeman", require: false
   gem "bullet"
-  gem "dotenv-rails"
   gem "faker"
   gem "pry"
   gem "pry-rails"
