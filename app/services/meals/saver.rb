@@ -34,11 +34,13 @@ module Meals
 
     def parsed_meal_ingredient_attributes(meal_id)
       (1..20).map do |index|
-        next if meal_details["strIngredient#{index}"].blank?
+        ingredient_name = meal_details["strIngredient#{index}"]
+
+        next if ingredient_name.blank?
 
         {
           meal_id: meal_id,
-          name: meal_details["strIngredient#{index}"],
+          name: ingredient_name,
           measurement: meal_details["strMeasure#{index}"]
         }
       end.compact

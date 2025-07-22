@@ -1,6 +1,5 @@
 module Meals
   class Filter < ApplicationService
-    PATH = "filter.php"
     FILTER_TYPES = {
       category: "c",
       area: "a",
@@ -15,8 +14,6 @@ module Meals
 
     def call
       ensure_valid_filter_type!
-
-      meals = Rails.cache.fetch(cache_key, expires_in: CACHE_EXPIRY) { fetch_meals }
 
       meals.map do |meal|
         MealThumbnail.new(
@@ -35,15 +32,17 @@ module Meals
       raise ArgumentError, "Invalid filter type" unless FILTER_TYPES.key?(filter_type)
     end
 
-    def cache_key
-      "meals_#{filter_type}_#{filter_value}"
+    def meals
+      response = client.get("filter.php", {param_key => filter_value}, cache_key: cache_key)
+      response["meals"] || []
     end
 
-    def fetch_meals
-      param_key = FILTER_TYPES[filter_type]
+    def param_key
+      FILTER_TYPES[filter_type]
+    end
 
-      response = client.get(PATH, param_key => filter_value)
-      response["meals"] || []
+    def cache_key
+      "meals_#{filter_type}_#{filter_value}"
     end
   end
 end

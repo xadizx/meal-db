@@ -1,10 +1,9 @@
 module Meals
   class DetailsGetter < ApplicationService
-    PATH = "lookup.php"
-
     def initialize(external_id:)
       @client = TheMealDB::Client.new
       @external_id = external_id
+      @existing_meal = Meal.find_by_external_id(external_id)
     end
 
     def call
@@ -18,13 +17,9 @@ module Meals
 
     attr_reader :client, :external_id
 
-    def existing_meal
-      @existing_meal ||= Meal.find_by_external_id(external_id)
-    end
-
     def fetch_meal_details
-      response = client.get(PATH, i: external_id)
-      response["meals"].first
+      response = client.get("lookup.php", i: external_id)
+      response["meals"]&.first
     end
 
     def save_meal(meal_details)

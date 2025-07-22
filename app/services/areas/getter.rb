@@ -1,16 +1,11 @@
 module Areas
   class Getter < ApplicationService
-    PATH = "list.php?a=list"
-    CACHE_KEY = "areas_list"
-
     def initialize
       @client = TheMealDB::Client.new
     end
 
     def call
-      Rails.cache.fetch(CACHE_KEY, expires_in: CACHE_EXPIRY) do
-        areas.map { |area| area["strArea"] }
-      end
+      areas.map { |area| area["strArea"] }
     end
 
     private
@@ -18,7 +13,7 @@ module Areas
     attr_reader :client
 
     def areas
-      response = client.get(PATH)
+      response = client.get("list.php?a=list", cache_key: "areas_list")
       response["meals"] || []
     end
   end
