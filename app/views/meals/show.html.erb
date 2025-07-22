@@ -1,3 +1,107 @@
-<% content_for :title do %>
-  Meal details
-<% end %>
+<div class="max-w-3xl mx-auto py-8">
+  <div class="flex flex-col gap-8">
+    <div class="flex justify-end">
+      <%= render IconButtonComponent.new(
+            icon_svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-yellow-400"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.09 4.234a.563.563 0 0 0 .424.308l4.665.678a.563.563 0 0 1 .312.96l-3.376 3.293a.563.563 0 0 0-.162.5l.797 4.646a.563.563 0 0 1-.818.594l-4.17-2.19a.563.563 0 0 0-.524 0l-4.17 2.19a.563.563 0 0 1-.818-.594l.797-4.646a.563.563 0 0 0-.162-.5L2.01 9.679a.563.563 0 0 1 .312-.96l4.665-.678a.563.563 0 0 0 .424-.308l2.09-4.234Z" /></svg>',
+            theme: :yellow,
+            text: 'Mark as favourite',
+            action: toggle_favourite_meal_path(@meal.external_id),
+            method: :post
+          ) %>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-8 items-start">
+      <div class="w-full sm:w-1/2 flex flex-col items-center">
+        <img src="<%= @meal.thumbnail_image_url %>" alt="<%= @meal.name %>" class="rounded-lg shadow-md w-full object-cover max-h-[28rem] mb-4" />
+      </div>
+      <div class="w-full sm:w-1/2 flex flex-col justify-center">
+        <h1 class="text-4xl font-bold text-gray-900 mb-4"><%= @meal.name %></h1>
+        <div class="space-y-2 mb-4">
+          <p class="text-gray-700"><strong>Category:</strong> <%= @meal.category.name %></p>
+          <p class="text-gray-700"><strong>Main ingredient:</strong> <%= @meal.main_ingredient %></p>
+        </div>
+        <div class="mb-4">
+          <p class="text-gray-600 text-sm italic"><%= @meal.category.description %></p>
+        </div>
+        <!-- Average review -->
+        <div class="mb-4">
+          <% if @meal.review_count > 0 %>
+            <div class="flex items-center gap-2">
+              <div class="flex items-center">
+                <% @meal.average_rating.round.times do %>
+                  <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                <% end %>
+                <% (5 - @meal.average_rating.round).times do %>
+                  <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                <% end %>
+              </div>
+              <span class="text-sm text-gray-600">
+                <%= @meal.average_rating %>/5 
+                (<%= pluralize(@meal.review_count, 'review') %>)
+              </span>
+            </div>
+          <% else %>
+            <p class="text-sm text-gray-500">No reviews yet - be the first to review!</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-8 mt-6">
+      <div class="w-full sm:w-1/2">
+        <h3 class="text-base font-semibold text-gray-900 mb-2">Instructions</h3>
+        <div class="text-gray-700 whitespace-pre-line"><%= @meal.instructions %></div>
+      </div>
+      <div class="w-full sm:w-1/2">
+        <h3 class="text-base font-semibold text-gray-900 mb-2">Ingredients</h3>
+        <% if @meal.meal_ingredients.any? %>
+          <ul class="list-disc pl-5 text-gray-700">
+            <% @meal.meal_ingredients.each do |ingredient| %>
+              <li><%= ingredient.name %> - <%= ingredient.measurement %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <div class="text-gray-500">No ingredients listed.</div>
+        <% end %>
+      </div>
+    </div>
+    <div class="mt-10">
+      <h4 class="text-lg font-semibold text-gray-900 mb-4">Reviews</h4>
+      <div class="space-y-4 mb-8">
+        <% [
+          {user: 'Alice', rating: 5, comment: 'Delicious and easy to make!'},
+          {user: 'Bob', rating: 4, comment: 'Tasty, but I added more spices.'},
+          {user: 'Charlie', rating: 3, comment: 'It was okay, but a bit bland for my taste.'}
+        ].each do |review| %>
+          <%= render ReviewComponent.new(user: review[:user], rating: review[:rating], comment: review[:comment], removable: true) %>
+        <% end %>
+      </div>
+      <h5 class="text-md font-medium text-gray-900 mb-2">Add your review</h5>
+      <form class="space-y-4">
+        <div>
+          <label for="rating" class="block text-sm/6 font-medium text-gray-900">Rating</label>
+          <select id="rating" name="rating" class="mt-1 block w-24 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+            <% 1.upto(5) do |i| %>
+              <option value="<%= i %>"><%= i %></option>
+            <% end %>
+          </select>
+        </div>
+        <div>
+          <label for="comment" class="block text-sm/6 font-medium text-gray-900">Add your comment</label>
+          <div class="mt-2">
+            <textarea id="comment" name="comment" rows="4" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"></textarea>
+          </div>
+        </div>
+        <%= render IconButtonComponent.new(
+              icon_svg: '<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>',
+              theme: :indigo,
+              text: 'Submit Review',
+              action: '#',
+              method: :post
+            ) %>
+      </form>
+    </div>
+  </div>
+</div>

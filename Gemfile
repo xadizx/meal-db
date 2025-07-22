@@ -39,6 +39,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "rack-mini-profiler", require: false
   gem "reek"
   gem "standard"
   gem "web-console"
