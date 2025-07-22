@@ -3,13 +3,19 @@
     "autofocus",
     "Favourite",
     "favourited",
+    "favourites",
+    "haspopup",
     "hotwired",
     "importmap",
+    "labelledby",
+    "linecap",
+    "linejoin",
     "MEALDB",
     "reviewdog",
     "Shoulda",
     "standardrb",
     "stylesheet",
+    "tabindex",
     "validatable"
   ]
 }

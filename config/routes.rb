@@ -5,5 +5,17 @@ Rails.application.routes.draw do
 
   root "homepage#index"
 
-  resources :dashboard, only: [:index]
+  resources :meals, only: [:index, :show], param: :external_id do
+    collection do
+      get :browse
+      get :random
+    end
+
+    member do
+      resources :reviews, only: [:create], as: :meal_reviews
+      put :favourite, to: "meals#toggle_favourite", as: :toggle_favourite
+    end
+  end
+
+  resources :reviews, only: [:index, :destroy]
 end

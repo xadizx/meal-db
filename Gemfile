@@ -6,7 +6,7 @@ gem "rails", "~> 8.0.2"
 gem "activerecord-import"
 gem "bootsnap", require: false
 gem "devise"
-gem "draper"
+# gem "draper"
 gem "dry-struct"
 gem "faraday"
 gem "importmap-rails"
