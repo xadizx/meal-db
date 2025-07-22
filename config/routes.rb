@@ -1,13 +1,9 @@
 Rails.application.routes.draw do
+  mount MissionControl::Jobs::Engine, at: "/jobs" if Rails.env.development?
+
   devise_for :users, only: [:sessions, :registrations]
 
-  if Rails.env.development?
-    mount MissionControl::Jobs::Engine, at: "/jobs"
-  end
-
-  get "up" => "rails/health#show", :as => :rails_health_check
-
-  root "pages#index"
+  root "homepage#index"
 
   resources :dashboard, only: [:index]
 end
