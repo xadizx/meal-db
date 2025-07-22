@@ -1,6 +1,9 @@
 class ReviewsController < ApplicationController
   include AuthenticatedAccess
 
+  before_action :set_meal, only: [:create]
+  before_action :set_review, only: [:destroy]
+
   def index
     # Current user's reviews
   end
@@ -15,8 +18,12 @@ class ReviewsController < ApplicationController
 
   private
 
-  def meal
-    @meal ||= Meal.find_by_external_id(params[:external_id])
+  def set_review
+    @review = Review.find!(params[:id])
+  end
+
+  def set_meal
+    @meal = Meal.find_by_external_id!(params[:external_id])
   end
 
   def review_params

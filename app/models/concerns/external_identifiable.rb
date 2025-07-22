@@ -5,6 +5,10 @@ module ExternalIdentifiable
     def find_by_external_id(external_id)
       find_by(external_id: external_id)
     end
+
+    def find_by_external_id!(external_id)
+      find_by!(external_id: external_id)
+    end
   end
 
   included do

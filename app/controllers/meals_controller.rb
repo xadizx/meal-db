@@ -1,12 +1,13 @@
 class MealsController < ApplicationController
   include AuthenticatedAccess
 
+  before_action :set_meal, only: [:show, :toggle_favourite]
+
   def index
     @thumbnails = current_user.favourited_meals.decorate.map(&:to_thumbnail)
   end
 
   def show
-    # Display meal by external_id
   end
 
   def browse
@@ -23,7 +24,7 @@ class MealsController < ApplicationController
 
   private
 
-  def meal
-    @meal ||= Meal.find_by_external_id(params[:external_id])
+  def set_meal
+    @meal ||= Meal.find_by_external_id!(params[:external_id])
   end
 end
