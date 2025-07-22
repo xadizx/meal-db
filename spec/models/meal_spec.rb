@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe Meal, type: :model do
   subject { build(:meal) }
 
+  it_behaves_like "external_identifiable"
+
   describe "associations" do
     it { is_expected.to belong_to(:category).inverse_of(:meals) }
     it { is_expected.to have_many(:meal_ingredients).dependent(:destroy).inverse_of(:meal) }
@@ -11,8 +13,6 @@ RSpec.describe Meal, type: :model do
   end
 
   describe "validations" do
-    it { is_expected.to validate_presence_of(:external_id) }
-    it { is_expected.to validate_uniqueness_of(:external_id) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:name) }
     it { is_expected.to validate_presence_of(:thumbnail_url) }
