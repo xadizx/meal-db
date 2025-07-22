@@ -38,6 +38,9 @@ A web application built with Ruby on Rails to help users decide what to cook. Us
 git clone git@github.com:xadizx/meal-db.git
 cd meal_ideas_generator
 
+# Clone and set .env file
+cp .env.example .env
+
 # Install dependencies
 bundle install
 
