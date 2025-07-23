@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe IconButtonComponent, type: :component do
+RSpec.describe ButtonComponent, type: :component do
   let(:icon_svg) { '<svg class="w-5 h-5"></svg>' }
 
   it "renders as a link with text and icon" do

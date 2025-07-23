@@ -9,6 +9,12 @@ class Meal < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :thumbnail_image_url, :instructions, :area, presence: true
 
+  def favorited_by?(user)
+    return false unless user
+
+    favourite_meals.exists?(user: user)
+  end
+
   def average_rating
     return 0.0 if meal_reviews.empty?
 

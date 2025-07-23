@@ -15,7 +15,7 @@
       <% if content.present? %>
         <%= content %>
       <% else %>
-        <%= render IconButtonComponent.new(icon_svg: '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>', theme: :red, text: nil, action: '#', method: :delete) %>
+        <%= render ButtonComponent.new(icon_svg: '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>', theme: :red, text: nil, action: '#', method: :delete) %>
       <% end %>
     </div>
   <% end %>

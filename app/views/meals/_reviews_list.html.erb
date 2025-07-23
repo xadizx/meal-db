@@ -1,0 +1,29 @@
+<div id="reviews_list" class="space-y-4 mb-8">
+  <% if meal.meal_reviews.includes(:user).any? %>
+    <% meal.meal_reviews.includes(:user).order(created_at: :desc).each do |review| %>
+      <%= render ReviewComponent.new(
+            user: review.user.email.split('@').first.capitalize,
+            rating: review.rating,
+            comment: review.comment,
+            removable: review.user == current_user
+          ) do %>
+        <% if review.user == current_user %>
+          <%= link_to review_path(review),
+                data: {
+                  turbo_method: :delete,
+                  turbo_confirm: "Are you sure you want to delete your review?"
+                },
+                class: "text-red-600 hover:text-red-800 p-1" do %>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div class="text-center py-8">
+      <p class="text-gray-500">No reviews yet. Be the first to review this meal!</p>
+    </div>
+  <% end %>
+</div>

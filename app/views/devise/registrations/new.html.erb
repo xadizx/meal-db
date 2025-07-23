@@ -1,25 +1,25 @@
 <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
-    <h2 class="mt-6 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Create your free account</h2>
+    <h2 class="text-center">Create your free account</h2>
   </div>
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
     <div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), data: { turbo: false }, html: { class: "space-y-6" }) do |f| %>
         <%= render "devise/registrations/error_messages", resource: resource %>
         <div>
-          <%= f.label :email, class:"block text-sm/6 font-medium text-gray-900" %>
+          <%= f.label :email %>
           <div class="mt-2">
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" %>
           </div>
         </div>
         <div>
-          <%= f.label :password, class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.label :password %>
           <div class="mt-2">
             <%= f.password_field :password, autocomplete: "current-password", class:"block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" %>
           </div>
         </div>
         <div>
-          <%= f.label :password_confirmation, class: "block text-sm/6 font-medium text-gray-900" %>
+          <%= f.label :password_confirmation %>
           <div class="mt-2">
             <%= f.password_field :password_confirmation, autocomplete: "current-password", class:"block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" %>
           </div>

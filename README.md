@@ -10,7 +10,7 @@ A web application built with Ruby on Rails to help users decide what to cook. Us
 - **Rails**: 8.0.2
 - **Database**: PostgreSQL
 - **Authentication**: Devise
-- **Frontend**: Hotwire (Turbo + Stimulus)
+- **Frontend**: ViewComponent, Tailwind, Hotwire
 - **HTTP Requests**: Faraday
 - **Testing**: RSpec
 
