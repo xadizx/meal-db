@@ -4,6 +4,10 @@ A web application built with Ruby on Rails to help users decide what to cook. Us
 
 ---
 
+## Note
+
+This project was also a learning playground — it's my first time using ViewComponent and Solid Cache/Solid Queue. I also decided to give Turbo and Stimulus another try after being a bit disillusioned with them when they first came out about three years ago.
+
 ## 🛠 Tech Stack
 
 - **Ruby**: 3.4.4
