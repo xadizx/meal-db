@@ -15,7 +15,7 @@ class MealsController < ApplicationController
   end
 
   def random
-    # Random meal
+    @meal = Meals::RandomGetter.call
   end
 
   def toggle_favourite

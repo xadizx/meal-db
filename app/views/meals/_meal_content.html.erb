@@ -1,0 +1,46 @@
+<div class="max-w-4xl mx-auto">
+  <div class="flex flex-col gap-8">
+    <div class="flex justify-end">
+      <%= render "favorite_button", meal: @meal, favorited: @meal.favorited_by?(current_user) %>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-8 items-start">
+      <div class="w-full sm:w-1/2 flex flex-col items-center">
+        <img src="<%= @meal.thumbnail_image_url %>" alt="<%= @meal.name %>" class="rounded-lg shadow-md w-full object-cover max-h-[28rem] mb-4" />
+      </div>
+      <div class="w-full sm:w-1/2 flex flex-col justify-center">
+        <h1><%= @meal.name %></h1>
+        <div class="space-y-2 my-4">
+          <p class="text-gray-700"><strong>Category:</strong> <%= @meal.category.name %></p>
+          <p class="text-gray-700"><strong>Main ingredient:</strong> <%= @meal.main_ingredient %></p>
+        </div>
+        <div class="mb-4">
+          <p class="text-gray-600 text-sm italic"><%= @meal.category.description %></p>
+        </div>
+        <%= render "meal_rating", meal: @meal %>
+      </div>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-8 mt-6">
+      <div class="w-full sm:w-1/2">
+        <h3 class="mb-2">Instructions</h3>
+        <div class="text-gray-700 whitespace-pre-line"><%= @meal.instructions %></div>
+      </div>
+      <div class="w-full sm:w-1/2">
+        <h3 class=" mb-2">Ingredients</h3>
+        <% if @meal.meal_ingredients.any? %>
+          <ul class="list-disc pl-5 text-gray-700">
+            <% @meal.meal_ingredients.each do |ingredient| %>
+              <li><%= ingredient.name %> - <%= ingredient.measurement %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <div class="text-gray-500">No ingredients listed.</div>
+        <% end %>
+      </div>
+    </div>
+    <div class="mt-10 space-y-8">
+      <h3>Reviews</h3>
+      <%= render "reviews_list", meal: @meal %>
+      <%= render "review_form", meal: @meal, review: @meal.meal_reviews.build %>
+    </div>
+  </div>
+</div>

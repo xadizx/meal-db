@@ -1,10 +1,11 @@
 class NavLinkComponent < ViewComponent::Base
   ALLOWED_VARIANTS = [:main, :mobile].freeze
 
-  def initialize(path:, text:, variant: :main)
+  def initialize(path:, text:, variant: :main, turbo: true)
     @path = path
     @text = text
     @variant = variant
+    @turbo = turbo
 
     unless ALLOWED_VARIANTS.include?(variant)
       raise ArgumentError, "Unknown variant: #{variant}. Use :main or :mobile"
