@@ -11,7 +11,21 @@ class MealsController < ApplicationController
   end
 
   def browse
-    # Search by category/name/country + maybe ingredients
+    @categories = Category.ordered
+    @areas = Areas::Getter.call
+  end
+
+  def filter
+    filter_type = params[:filter_type]
+    filter_value = params[:filter_value]
+
+    @meal_thumbnails = Meals::Filter.call(filter_type: filter_type, filter_value: filter_value)
+
+    render turbo_stream: turbo_stream.replace(
+      "meals_results",
+      partial: "meals/search_results",
+      locals: {meal_thumbnails: @meal_thumbnails}
+    )
   end
 
   def random
@@ -43,6 +57,10 @@ class MealsController < ApplicationController
   private
 
   def set_meal
-    @meal ||= Meal.includes(:meal_ingredients, :meal_reviews).find_by_external_id!(params[:external_id])
+    @meal ||= Meal.includes(:meal_ingredients, :meal_reviews).find_by_external_id(params[:external_id]) || fetch_meal
+  end
+
+  def fetch_meal
+    Meals::DetailsGetter.call(external_id: params[:external_id])
   end
 end

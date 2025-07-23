@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     collection do
       get :browse
       get :random
+      post :filter
     end
 
     member do

@@ -15,10 +15,10 @@ module Meals
 
     private
 
-    attr_reader :client, :external_id
+    attr_reader :client, :external_id, :existing_meal
 
     def fetch_meal_details
-      response = client.get("lookup.php", i: external_id)
+      response = client.get("lookup.php", {i: external_id})
       response["meals"]&.first
     end
 
