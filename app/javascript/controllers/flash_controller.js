@@ -6,8 +6,8 @@ export default class extends Controller {
   connect() {
     if (this.autoDismissValue) {
       this.timeout = setTimeout(() => {
-        // this.dismiss();
-      }, 5000);
+        this.dismiss();
+      }, 3000);
     }
   }
 

@@ -1,3 +1,55 @@
 <% content_for :title do %>
   Your reviews
 <% end %>
+<% content_for :subtitle do %>
+  All the meals you've reviewed
+<% end %>
+<div id="user_reviews_list" class="space-y-6">
+  <% if @reviews.any? %>
+    <% @reviews.each do |review| %>
+      <div id="review_<%= review.id %>" class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+        <!-- Meal Header -->
+        <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+          <div class="flex items-center gap-4">
+            <% if review.meal.thumbnail_image_url.present? %>
+              <%= image_tag review.meal.thumbnail_image_url, 
+                      alt: review.meal.name,
+                      class: "w-16 h-16 rounded-lg object-cover" %>
+            <% end %>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-gray-900">
+                <%= link_to review.meal.name, 
+                        meal_path(review.meal.external_id),
+                        class: "hover:text-blue-600 transition-colors" %>
+              </h3>
+              <% if review.meal.category.present? %>
+                <%= render BadgeComponent.new(text: review.meal.category.name, theme: :blue) %>
+              <% end %>
+            </div>
+            <div class="text-sm text-gray-500">
+              Reviewed <%= time_ago_in_words(review.created_at) %> ago
+            </div>
+          </div>
+        </div>
+        <!-- Review Content -->
+        <div class="px-6 py-4">
+          <%= render ReviewComponent.new(
+                    author: current_user.email.split('@').first.capitalize,
+                    rating: review.rating,
+                    comment: review.comment,
+                    review_id: review.id,
+                    removable: true
+                  ) %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <%= render EmptyStateComponent.new(
+          title: "No reviews yet. Start browsing to add some!",
+          primary_action_text: "Browse Meals",
+          primary_action_path: browse_meals_path,
+          secondary_action_text: "Or check a random meal",
+          secondary_action_path: random_meals_path
+        ) %>
+  <% end %>
+</div>

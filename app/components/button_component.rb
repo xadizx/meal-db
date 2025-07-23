@@ -50,4 +50,8 @@ class ButtonComponent < ViewComponent::Base
   def render_as_link?
     @button_type == :link || (@button_type == :auto && @method == :get)
   end
+
+  def ensure_theme_exists
+    raise "Theme #{@theme} does not exist" unless THEMES.key?(@theme)
+  end
 end

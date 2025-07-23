@@ -29,6 +29,9 @@
           <h1>
             <%= content_for(:title) %>
           </h1>
+          <p class="text-gray-600 mt-2">
+            <%= content_for(:subtitle) %>
+          </p>
         </header>
         <main class="flex flex-col gap-y-8 container-wide">
           <%= yield %>

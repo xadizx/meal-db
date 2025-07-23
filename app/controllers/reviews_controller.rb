@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: [:destroy]
 
   def index
-    @reviews = current_user.meal_reviews.includes(:meal).order(created_at: :desc)
+    @reviews = current_user.meal_reviews.includes(:meal).latest
   end
 
   def create
@@ -43,16 +43,16 @@ class ReviewsController < ApplicationController
       if @review.destroy
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.replace("reviews_list", partial: "meals/reviews_list", locals: {meal: @meal}),
             turbo_stream.replace("meal_rating", partial: "meals/meal_rating", locals: {meal: @meal}),
             turbo_stream.replace("review_form", partial: "meals/review_form", locals: {meal: @meal, review: @meal.meal_reviews.build}),
+            turbo_stream.remove("review_#{@review.id}"),
             flash_turbo_stream(type: :success, message: "Review deleted successfully!")
           ]
         end
         format.html { redirect_to meal_path(@meal.external_id), notice: "Review deleted successfully!" }
       else
         format.turbo_stream do
-          render turbo_stream: flash_turbo_stream(type: :error, message: "Failed to delete review")
+          render turbo_stream: flash_turbo_stream(type: :alert, message: "Failed to delete review")
         end
         format.html { redirect_to meal_path(@meal.external_id), alert: "Failed to delete review" }
       end
