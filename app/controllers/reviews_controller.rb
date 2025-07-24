@@ -5,7 +5,7 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: [:destroy]
 
   def index
-    @reviews = current_user.meal_reviews.includes(:meal).latest
+    @reviews = current_user.meal_reviews.includes(:meal).recent_first
   end
 
   def create

@@ -1,6 +1,6 @@
 <div id="reviews_list" class="space-y-4 mb-8">
   <% if meal.meal_reviews.any? %>
-    <% meal.meal_reviews.latest.each do |review| %>
+    <% meal.meal_reviews.recent_first.each do |review| %>
       <%= render ReviewComponent.new(review: review, removable: review.user == current_user) %>
     <% end %>
   <% else %>

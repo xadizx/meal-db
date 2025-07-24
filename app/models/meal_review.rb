@@ -6,5 +6,5 @@ class MealReview < ApplicationRecord
   validates :user_id, uniqueness: {scope: :meal_id, message: "has already reviewed this meal"}
   validates :comment, presence: true, length: {minimum: 3, maximum: 1000}
 
-  scope :latest, -> { order(created_at: :desc) }
+  scope :recent_first, -> { order(created_at: :desc) }
 end
