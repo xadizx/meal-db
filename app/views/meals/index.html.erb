@@ -15,6 +15,6 @@
     <% end %>
   </div>
   <%= turbo_frame_tag "meals_results" do %>
-    <%= render partial: "meals/search_results", locals: { meal_thumbnails: @meal_thumbnails } %>
+    <%= render partial: "meals/search_results", locals: {   meal_cards: @meal_cards } %>
   <% end %>
 </div>

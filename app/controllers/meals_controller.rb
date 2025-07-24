@@ -16,12 +16,12 @@ class MealsController < ApplicationController
   end
 
   def filter
-    @meal_thumbnails = Meals::Filter.call(filter_type: params[:filter_type], filter_value: params[:filter_value])
+    @meal_cards = Meals::Filter.call(filter_type: params[:filter_type], filter_value: params[:filter_value])
 
     render turbo_stream: turbo_stream.replace(
       "meals_results",
       partial: "meals/search_results",
-      locals: {meal_thumbnails: @meal_thumbnails}
+      locals: {meal_cards: @meal_cards}
     )
   end
 

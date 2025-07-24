@@ -5,7 +5,9 @@ class ReviewComponent < ViewComponent::Base
     @skip_review_id_tag = skip_review_id_tag
   end
 
-  attr_reader :review, :removable
+  private
+
+  attr_reader :review, :removable, :skip_review_id_tag
 
   def author
     review.user.email.split("@").first.capitalize

@@ -10,14 +10,14 @@
         <h3 class="text-sm font-medium <%= config[:text_color] %>"><%= display_title %></h3>
         <div class="mt-2 text-sm <%= config[:text_color].sub('800', '700') %>">
           <ul role="list" class="list-disc space-y-1 pl-5">
-            <% @messages.each do |msg| %>
+            <% messages.each do |msg| %>
               <li class="<%= config[:text_color] %>"><%= msg %></li>
             <% end %>
           </ul>
         </div>
       <% else %>
         <p class="text-sm font-medium <%= config[:text_color] %>">
-          <%= @message || @messages&.first %>
+          <%= message || messages&.first %>
         </p>
       <% end %>
     </div>

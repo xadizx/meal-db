@@ -14,7 +14,7 @@ class NavLinkComponent < ViewComponent::Base
 
   private
 
-  attr_reader :path, :text, :variant
+  attr_reader :path, :text, :variant, :turbo
 
   def link_classes
     base_classes = case variant

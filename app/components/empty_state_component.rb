@@ -10,6 +10,8 @@ class EmptyStateComponent < ViewComponent::Base
 
   private
 
+  attr_reader :title, :primary_action_text, :primary_action_path, :secondary_action_text, :secondary_action_path, :icon_svg
+
   def default_icon_svg
     <<~SVG
       <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" aria-hidden="true" class="mx-auto size-12 text-gray-400">

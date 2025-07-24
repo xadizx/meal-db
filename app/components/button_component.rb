@@ -19,39 +19,43 @@ class ButtonComponent < ViewComponent::Base
     @button_type = button_type.to_sym
   end
 
+  private
+
+  attr_reader :icon_svg, :theme, :text, :action, :method, :turbo, :data, :button_type
+
   def classes
     "flex w-full justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 #{bg_class} #{text_class} #{hover_class} transition"
   end
 
   def bg_class
-    THEMES[@theme][:bg] || THEMES[:gray][:bg]
+    THEMES[theme][:bg] || THEMES[:gray][:bg]
   end
 
   def text_class
-    THEMES[@theme][:text] || THEMES[:gray][:text]
+    THEMES[theme][:text] || THEMES[:gray][:text]
   end
 
   def hover_class
-    THEMES[@theme][:hover] || THEMES[:gray][:hover]
+    THEMES[theme][:hover] || THEMES[:gray][:hover]
   end
 
   def turbo_data
-    (@data || {}).merge(turbo: @turbo)
+    (data || {}).merge(turbo: turbo)
   end
 
   def render_as_submit?
-    @button_type == :submit
+    button_type == :submit
   end
 
   def render_as_form_button?
-    @button_type == :form || (@button_type == :auto && [:post, :put, :delete].include?(@method))
+    button_type == :form || (button_type == :auto && [:post, :put, :delete].include?(method))
   end
 
   def render_as_link?
-    @button_type == :link || (@button_type == :auto && @method == :get)
+    button_type == :link || (button_type == :auto && method == :get)
   end
 
   def ensure_theme_exists
-    raise "Theme #{@theme} does not exist" unless THEMES.key?(@theme)
+    raise "Theme #{theme} does not exist" unless THEMES.key?(theme)
   end
 end

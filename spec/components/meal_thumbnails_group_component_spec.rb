@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe MealThumbnailsGroupComponent, type: :component do
-  let(:meal_thumbnail1) do
+  let(:meal_card1) do
     MealCard.new(
       external_id: 123,
       thumbnail_image_url: "http://example.com/image.jpg",
@@ -10,7 +10,7 @@ RSpec.describe MealThumbnailsGroupComponent, type: :component do
     )
   end
 
-  let(:meal_thumbnail2) do
+  let(:meal_card2) do
     MealCard.new(
       external_id: 456,
       thumbnail_image_url: "http://example.com/image2.jpg",
@@ -19,9 +19,9 @@ RSpec.describe MealThumbnailsGroupComponent, type: :component do
     )
   end
 
-  context "when meal_thumbnails are present" do
+  context "when meal_cards are present" do
     it "renders the grid of meal thumbnails" do
-      render_inline(described_class.new(meal_thumbnails: [meal_thumbnail1, meal_thumbnail2]))
+      render_inline(described_class.new(meal_cards: [meal_card1, meal_card2]))
 
       expect(page).to have_content("Chocolate Cake")
       expect(page).to have_content("Main Course")
@@ -32,9 +32,9 @@ RSpec.describe MealThumbnailsGroupComponent, type: :component do
     end
   end
 
-  context "when meal_thumbnails is empty" do
+  context "when meal_cards is empty" do
     it "renders the empty state with browse and random meal links" do
-      render_inline(described_class.new(meal_thumbnails: []))
+      render_inline(described_class.new(meal_cards: []))
 
       expect(page).to have_content("No favourite meals yet. Start browsing to add some!")
       expect(page).to have_link(href: Rails.application.routes.url_helpers.meals_path)

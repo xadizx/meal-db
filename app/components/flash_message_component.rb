@@ -1,6 +1,4 @@
 class FlashMessageComponent < ViewComponent::Base
-  attr_reader :type, :message, :title, :messages
-
   TYPES = {
     success: {
       container_classes: "bg-green-50 border-green-200",
@@ -38,30 +36,32 @@ class FlashMessageComponent < ViewComponent::Base
     @title = title
     @messages = messages
 
-    raise ArgumentError, "Invalid flash type: #{@type}" unless TYPES.key?(@type)
-    raise ArgumentError, "Must provide either message or messages" if @message.nil? && @messages.nil?
+    raise ArgumentError, "Invalid flash type: #{type}" unless TYPES.key?(type)
+    raise ArgumentError, "Must provide either message or messages" if message.nil? && messages.nil?
   end
 
   private
 
+  attr_reader :type, :message, :title, :messages
+
   def config
-    TYPES[@type]
+    TYPES[type]
   end
 
   def has_multiple_messages?
-    @messages.present? && @messages.is_a?(Array) && @messages.length > 1
+    messages.present? && messages.is_a?(Array) && messages.length > 1
   end
 
   def display_title
-    @title || default_title
+    title || default_title
   end
 
   def default_title
-    case @type
+    case type
     when :success
       "Success"
     when :alert
-      has_multiple_messages? ? "There were #{@messages.length} errors with your submission" : "Error"
+      has_multiple_messages? ? "There were #{messages.length} errors with your submission" : "Error"
     when :warning
       "Warning"
     when :notice

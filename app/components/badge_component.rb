@@ -15,11 +15,15 @@ class BadgeComponent < ViewComponent::Base
     @theme = theme.to_sym
   end
 
+  private
+
+  attr_reader :text, :theme
+
   def bg_class
-    THEMES[@theme][:bg] || THEMES[:gray][:bg]
+    THEMES[theme][:bg] || THEMES[:gray][:bg]
   end
 
   def text_class
-    THEMES[@theme][:text] || THEMES[:gray][:text]
+    THEMES[theme][:text] || THEMES[:gray][:text]
   end
 end

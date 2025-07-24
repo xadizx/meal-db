@@ -1,5 +1,5 @@
-<% if meal_thumbnails.present? %>
-  <%= render MealThumbnailsGroupComponent.new(meal_thumbnails: meal_thumbnails) %>
+<% if meal_cards.any? %>
+  <%= render MealThumbnailsGroupComponent.new(meal_cards: meal_cards) %>
 <% else %>
   <div class="text-gray-500 text-center py-8">No meals found.</div>
 <% end %>

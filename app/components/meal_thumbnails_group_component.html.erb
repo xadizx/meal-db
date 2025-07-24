@@ -1,7 +1,7 @@
-<% if @meal_thumbnails.present? %>
+<% if meal_cards.any? %>
   <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-    <% @meal_thumbnails.each do |thumbnail| %>
-      <%= render(MealThumbnailComponent.new(meal_thumbnail: thumbnail)) %>
+    <% meal_cards.each do |card| %>
+      <%= render(MealThumbnailComponent.new(meal_card: card)) %>
     <% end %>
   </div>
 <% else %>
