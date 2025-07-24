@@ -1,15 +1,7 @@
 <div id="reviews_list" class="space-y-4 mb-8">
-  <% if meal.meal_reviews.includes(:user).any? %>
-    <% meal.meal_reviews.includes(:user).order(created_at: :desc).each do |review| %>
-      <div id="review_<%= review.id %>">
-        <%= render ReviewComponent.new(
-            author: review.user.email.split('@').first.capitalize,
-            rating: review.rating,
-            review_id: review.id,
-            comment: review.comment,
-            removable: review.user == current_user
-          ) %>
-      </div>
+  <% if meal.meal_reviews.any? %>
+    <% meal.meal_reviews.latest.each do |review| %>
+      <%= render ReviewComponent.new(review: review, removable: review.user == current_user) %>
     <% end %>
   <% else %>
     <div class="text-center py-8">

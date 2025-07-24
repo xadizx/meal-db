@@ -1,25 +1,22 @@
-<div class="rounded-lg border border-gray-200 bg-white p-4 flex items-start justify-between">
+<div id="<%= review_id_tag unless @skip_review_id_tag %>" class="rounded-lg border border-gray-200 bg-white p-4 flex items-start justify-between">
   <div>
     <div class="flex items-center gap-2 mb-1">
-      <span class="font-medium text-gray-800"><%= @author %></span>
+      <span class="font-medium text-gray-800"><%= author %></span>
       <span class="flex gap-0.5">
-        <% 1.upto(5) do |i| %>
-          <svg class="w-4 h-4 <%= i <= @rating ? 'text-yellow-400' : 'text-gray-200' %>" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 0 0 .95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 0 0-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.455a1 1 0 0 0-1.175 0l-3.38 2.455c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 0 0-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 0 0 .95-.69l1.286-3.967z"/></svg>
+        <% 1.upto(5) do |star| %>
+          <svg class="<%= rating_class(star) %>" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 0 0 .95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 0 0-.364 1.118l1.287 3.966c.3.922-.755 1.688-1.54 1.118l-3.38-2.455a1 1 0 0 0-1.175 0l-3.38 2.455c-.784.57-1.838-.196-1.54-1.118l1.287-3.966a1 1 0 0 0-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 0 0 .95-.69l1.286-3.967z"/></svg>
         <% end %>
       </span>
     </div>
-    <div class="text-sm text-gray-700"><%= @comment %></div>
+    <div class="text-sm text-gray-700"><%= @review.comment %></div>
   </div>
   <% if @removable %>
     <div class="ml-4">
       <% if content.present? %>
         <%= content %>
       <% else %>
-        <%= link_to review_path(@review_id),
-                data: {
-                  turbo_method: :delete,
-                  turbo_confirm: "Are you sure you want to delete your review?"
-                },
+        <%= link_to review_path(@review.id),
+                data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete your review?" },
                 class: "text-red-600 hover:text-red-800 p-1" do %>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>

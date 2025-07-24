@@ -1,0 +1,26 @@
+<div id="<%= review_id_tag %>" class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+  <!-- Meal Header -->
+  <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+    <div class="flex items-center gap-4">
+      <% if @meal.thumbnail_image_url.present? %>
+        <%= image_tag @meal.thumbnail_image_url, 
+                      alt: @meal.name,
+                      class: "w-16 h-16 rounded-lg object-cover" %>
+      <% end %>
+      <div class="flex-1">
+        <h3 class="text-lg font-semibold text-gray-900">
+          <%= link_to @meal.name, meal_path(@meal.external_id), class: "hover:text-blue-600 transition-colors" %>
+        </h3>
+        <% if @meal.category.present? %>
+          <%= render BadgeComponent.new(text: @meal.category.name, theme: :blue) %>
+        <% end %>
+      </div>
+      <div class="text-sm text-gray-500">
+        Reviewed <%= time_ago_in_words(@review.created_at) %> ago
+      </div>
+    </div>
+  </div>
+  <div class="px-6 py-4">
+    <%= render ReviewComponent.new(review: @review, removable: true, skip_review_id_tag: true) %>
+  </div>
+</div>
