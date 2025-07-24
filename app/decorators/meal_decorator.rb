@@ -1,8 +1,8 @@
 class MealDecorator < Draper::Decorator
   delegate_all
 
-  def to_thumbnail
-    MealThumbnail.new(
+  def to_card
+    MealCard.new(
       external_id: object.external_id,
       name: object.name,
       thumbnail_image_url: object.thumbnail_image_url,

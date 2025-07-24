@@ -15,8 +15,8 @@ module Meals
     def call
       ensure_valid_filter_type!
 
-      meals.map do |meal|
-        MealThumbnail.new(
+      external_meals.map do |meal|
+        MealCard.new(
           external_id: meal["idMeal"].to_i,
           name: meal["strMeal"],
           thumbnail_image_url: meal["strMealThumb"],
@@ -33,7 +33,7 @@ module Meals
       raise ArgumentError, "Invalid filter type" unless FILTER_TYPES.key?(filter_type)
     end
 
-    def meals
+    def external_meals
       response = client.get("filter.php", {param_key => filter_value}, cache_key: cache_key)
       response["meals"] || []
     end

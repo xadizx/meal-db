@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe MealThumbnailsGroupComponent, type: :component do
   let(:meal_thumbnail1) do
-    MealThumbnail.new(
+    MealCard.new(
       external_id: 123,
       thumbnail_image_url: "http://example.com/image.jpg",
       category_name: "Dessert",
@@ -11,7 +11,7 @@ RSpec.describe MealThumbnailsGroupComponent, type: :component do
   end
 
   let(:meal_thumbnail2) do
-    MealThumbnail.new(
+    MealCard.new(
       external_id: 456,
       thumbnail_image_url: "http://example.com/image2.jpg",
       category_name: "Main Course",
@@ -37,7 +37,7 @@ RSpec.describe MealThumbnailsGroupComponent, type: :component do
       render_inline(described_class.new(meal_thumbnails: []))
 
       expect(page).to have_content("No favourite meals yet. Start browsing to add some!")
-      expect(page).to have_link(href: Rails.application.routes.url_helpers.browse_meals_path)
+      expect(page).to have_link(href: Rails.application.routes.url_helpers.meals_path)
       expect(page).to have_link("Or check a random meal", href: Rails.application.routes.url_helpers.random_meals_path)
     end
   end

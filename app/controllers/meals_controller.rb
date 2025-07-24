@@ -12,7 +12,7 @@ class MealsController < ApplicationController
   end
 
   def favourite
-    @thumbnails = current_user.favourited_meals.decorate.map(&:to_thumbnail)
+    @thumbnails = current_user.favourited_meals.decorate.map(&:to_card)
   end
 
   def filter
