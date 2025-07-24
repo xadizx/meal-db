@@ -1,0 +1,13 @@
+<div class=" justify-center flex items-center gap-4 mb-6" data-controller="filter-select">
+  <%= form_with url: filter_meals_path, method: :post,  local: false, data: { turbo: true } do %>
+    <%= label_tag :category, "Category" %>
+    <%= select_tag(:filter_value, options_for_select(@categories), prompt: "Select category", data: { "filter-select-target": "category", action: "change->filter-select#categoryChanged" }) %>
+    <%= hidden_field_tag :filter_type, "category" %>
+  <% end %>
+  <span class="text-gray-500"> or </span>
+  <%= form_with url: filter_meals_path, method: :post, local: false, data: { turbo: true } do %>
+    <%= label_tag :area, "Country" %>
+    <%= select_tag :filter_value, options_for_select(@areas), prompt: "Select country", data: { "filter-select-target": "area", action: "change->filter-select#areaChanged" } %>
+    <%= hidden_field_tag :filter_type, "area" %>
+  <% end %>
+</div>

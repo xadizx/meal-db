@@ -13,7 +13,7 @@ class ReviewsController < ApplicationController
 
     if @review.save
       render turbo_stream: [
-        turbo_stream.prepend("reviews_list", ReviewComponent.new(review: @review, skip_review_id_tag: true)),
+        turbo_stream.prepend("reviews_list", ReviewComponent.new(review: @review, removable: true, skip_review_id_tag: true)),
         *reviews_common_turbo_stream_response(@review)
       ]
     else

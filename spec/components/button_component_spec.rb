@@ -1,46 +1,48 @@
 require "rails_helper"
 
 RSpec.describe ButtonComponent, type: :component do
-  let(:icon_svg) { '<svg class="w-5 h-5"></svg>' }
-
-  it "renders as a link with text and icon" do
-    render_inline(described_class.new(icon_svg: icon_svg, text: "Click me", action: "/foo", method: :get, theme: :yellow))
+  it "renders as a link with content block" do
+    render_inline(described_class.new(action: "/foo", method: :get, theme: :primary)) { "Click me" }
     expect(page).to have_link("Click me", href: "/foo")
-    expect(page).to have_css(".bg-yellow-100.text-yellow-800")
-    expect(page).to have_css("svg.w-5.h-5")
+    expect(page).to have_css(".bg-indigo-600.text-white")
   end
 
-  it "renders as a button for post method" do
-    render_inline(described_class.new(icon_svg: icon_svg, text: "Submit", action: "/bar", method: :post, theme: :indigo))
+  it "renders as a form button (button_to) with content block" do
+    render_inline(described_class.new(action: "/bar", method: :post, theme: :secondary, button_type: :form)) { "Submit" }
+    expect(page).to have_selector("form[action='/bar'][method='post']")
     expect(page).to have_button("Submit")
-    expect(page).to have_css(".bg-indigo-100.text-indigo-700")
-    expect(page).to have_css("svg.w-5.h-5")
+    expect(page).to have_css(".bg-gray-100.text-gray-900")
   end
 
-  it "renders with icon only" do
-    render_inline(described_class.new(icon_svg: icon_svg, action: "/icon", method: :get, theme: :red))
-    expect(page).to have_link(href: "/icon")
-    expect(page).to have_css(".bg-red-100.text-red-700")
-    expect(page).to have_css("svg.w-5.h-5")
+  it "renders as a submit button with content block" do
+    render_inline(described_class.new(theme: :primary_outline, button_type: :submit)) { "Save" }
+    expect(page).to have_selector("button[type='submit']", text: "Save")
+    expect(page).to have_css(".bg-transparent.outline-indigo-600.text-indigo-600")
   end
 
-  it "passes turbo true to link" do
-    render_inline(described_class.new(icon_svg: icon_svg, text: "Turbo", action: "/turbo", method: :get, turbo: true))
+  it "sets data-turbo attribute correctly for link" do
+    render_inline(described_class.new(action: "/turbo", turbo: false)) { "Turbo Link" }
+    expect(page).to have_css("a[data-turbo='false']")
+    render_inline(described_class.new(action: "/turbo", turbo: true)) { "Turbo Link" }
     expect(page).to have_css("a[data-turbo='true']")
   end
 
-  it "passes turbo false to link" do
-    render_inline(described_class.new(icon_svg: icon_svg, text: "No Turbo", action: "/no_turbo", method: :get, turbo: false))
-    expect(page).to have_css("a[data-turbo='false']")
-  end
-
-  it "passes turbo true to button" do
-    render_inline(described_class.new(icon_svg: icon_svg, text: "TurboBtn", action: "/turbo_btn", method: :post, turbo: true))
+  it "sets data-turbo attribute correctly for form button" do
+    render_inline(described_class.new(action: "/form", method: :post, turbo: false, button_type: :form)) { "Form Btn" }
+    expect(page).to have_css("form button[data-turbo='false']")
+    render_inline(described_class.new(action: "/form", method: :post, turbo: true, button_type: :form)) { "Form Btn" }
     expect(page).to have_css("form button[data-turbo='true']")
   end
 
-  it "passes turbo false to button" do
-    render_inline(described_class.new(icon_svg: icon_svg, text: "NoTurboBtn", action: "/no_turbo_btn", method: :post, turbo: false))
-    expect(page).to have_css("form button[data-turbo='false']")
+  it "sets data-turbo attribute correctly for submit button" do
+    render_inline(described_class.new(turbo: false, button_type: :submit)) { "Submit Btn" }
+    expect(page).to have_css("button[type='submit'][data-turbo='false']")
+    render_inline(described_class.new(turbo: true, button_type: :submit)) { "Submit Btn" }
+    expect(page).to have_css("button[type='submit'][data-turbo='true']")
+  end
+
+  it "applies extra classes if provided" do
+    render_inline(described_class.new(classes: "custom-class")) { "With Extra" }
+    expect(page).to have_css(".custom-class")
   end
 end

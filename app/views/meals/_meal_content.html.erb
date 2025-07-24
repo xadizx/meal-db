@@ -19,12 +19,12 @@
         <%= render "meal_rating", meal: @meal %>
       </div>
     </div>
-    <div class="flex flex-col sm:flex-row gap-8 mt-6">
-      <div class="w-full sm:w-1/2">
+    <div class="flex flex-col lg:flex-row gap-8 mt-6">
+      <div class="w-full lg:w-1/2">
         <h3 class="mb-2">Instructions</h3>
         <div class="text-gray-700 whitespace-pre-line"><%= @meal.instructions %></div>
       </div>
-      <div class="w-full sm:w-1/2">
+      <div class="w-full lg:w-1/2">
         <h3 class=" mb-2">Ingredients</h3>
         <% if @meal.meal_ingredients.any? %>
           <ul class="list-disc pl-5 text-gray-700">

@@ -1,22 +1,13 @@
 <% if render_as_submit? %>
-  <button type="submit" data-turbo="<%= turbo %>" class="<%= classes %>">
-    <%= raw icon_svg %>
-    <% if text.present? %>
-      <span><%= text %></span>
-    <% end %>
+  <button type="submit" data-turbo="<%= turbo %>" class="<%= button_classes %>">
+    <%= content %>
   </button>
 <% elsif render_as_form_button? %>
-  <%= button_to action, method: method, data: turbo_data, class: classes do %>
-    <%= raw icon_svg %>
-    <% if text.present? %>
-      <span><%= text %></span>
-    <% end %>
+  <%= button_to action, method: method, data: turbo_data, class: button_classes do %>
+    <%= content %>
   <% end %>
 <% else %>
-  <%= link_to action, data: turbo_data, class: classes do %>
-    <%= raw icon_svg %>
-    <% if text.present? %>
-      <span><%= text %></span>
-    <% end %>
+  <%= link_to action, data: turbo_data, class: button_classes do %>
+    <%= content %>
   <% end %>
 <% end %>

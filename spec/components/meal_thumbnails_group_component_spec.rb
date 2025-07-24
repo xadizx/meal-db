@@ -31,14 +31,4 @@ RSpec.describe MealThumbnailsGroupComponent, type: :component do
       expect(page).to have_link(href: "/meals/456")
     end
   end
-
-  context "when meal_cards is empty" do
-    it "renders the empty state with browse and random meal links" do
-      render_inline(described_class.new(meal_cards: []))
-
-      expect(page).to have_content("No favourite meals yet. Start browsing to add some!")
-      expect(page).to have_link(href: Rails.application.routes.url_helpers.meals_path)
-      expect(page).to have_link("Or check a random meal", href: Rails.application.routes.url_helpers.random_meals_path)
-    end
-  end
 end

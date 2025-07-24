@@ -4,7 +4,7 @@ class MealsController < ApplicationController
   before_action :set_meal, only: [:show, :toggle_favourite]
 
   def index
-    @categories = Category.ordered
+    @categories = Category.ordered.pluck(:name)
     @areas = Areas::Getter.call
   end
 
@@ -12,15 +12,17 @@ class MealsController < ApplicationController
   end
 
   def favourite
-    @thumbnails = current_user.favourited_meals.decorate.map(&:to_card)
+    @meal_cards = current_user.favourited_meals.decorate.map(&:to_card)
   end
 
   def filter
-    @meal_cards = Meals::Filter.call(filter_type: params[:filter_type], filter_value: params[:filter_value])
+    filter_type, filter_value = params[:filter_type], params[:filter_value]
+
+    @meal_cards = Meals::Filter.call(filter_type: filter_type, filter_value: filter_value)
 
     render turbo_stream: turbo_stream.replace(
       "meals_results",
-      partial: "meals/search_results",
+      partial: "meals/index/search_results",
       locals: {meal_cards: @meal_cards}
     )
   end

@@ -10,12 +10,6 @@
       <%= render PersonalReviewComponent.new(review: review) %>
     <% end %>
   <% else %>
-    <%= render EmptyStateComponent.new(
-          title: "No reviews yet. Start browsing to add some!",
-          primary_action_text: "Browse Meals",
-          primary_action_path: meals_path,
-          secondary_action_text: "Or check a random meal",
-          secondary_action_path: random_meals_path
-        ) %>
+    <%= render EmptyMealsStateComponent.new(title: "No reviews yet", description: "Browse meals to add some to your favourites") %>
   <% end %>
 </div>

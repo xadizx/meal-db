@@ -1,42 +1,30 @@
 class ButtonComponent < ViewComponent::Base
   THEMES = {
-    primary: {bg: "bg-indigo-600", text: "text-white", hover: "hover:bg-indigo-500"},
-    gray: {bg: "bg-gray-100", text: "text-gray-900", hover: "hover:bg-gray-200"},
-    yellow: {bg: "bg-yellow-100", text: "text-yellow-800", hover: "hover:bg-yellow-200"},
-    indigo: {bg: "bg-indigo-100", text: "text-indigo-700", hover: "hover:bg-indigo-200"},
-    red: {bg: "bg-red-100", text: "text-red-700", hover: "hover:bg-red-200"},
-    green: {bg: "bg-green-100", text: "text-green-700", hover: "hover:bg-green-200"}
+    primary: "bg-indigo-600 text-white hover:bg-indigo-700",
+    primary_outline: "bg-transparent outline outline-2 outline-indigo-600 text-indigo-600 hover:bg-indigo-100",
+    secondary: "bg-gray-100 text-gray-900 hover:bg-gray-200"
   }.freeze
 
-  def initialize(icon_svg: nil, theme: :gray, text: nil, action: "#", method: :get, turbo: true, data: {}, button_type: :auto)
-    @icon_svg = icon_svg
+  def initialize(theme: :primary, action: "#", method: :get, turbo: true, data: {}, button_type: :auto, classes: "")
     @theme = theme.to_sym
-    @text = text
     @action = action
     @method = method.to_sym
     @turbo = turbo
     @data = data
     @button_type = button_type.to_sym
+    @classes = classes
   end
 
   private
 
-  attr_reader :icon_svg, :theme, :text, :action, :method, :turbo, :data, :button_type
+  attr_reader :theme, :action, :method, :turbo, :data, :button_type, :classes
 
-  def classes
-    "flex w-full justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 #{bg_class} #{text_class} #{hover_class} transition"
+  def base_classes
+    "flex justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2  transition cursor-pointer"
   end
 
-  def bg_class
-    THEMES[theme][:bg] || THEMES[:gray][:bg]
-  end
-
-  def text_class
-    THEMES[theme][:text] || THEMES[:gray][:text]
-  end
-
-  def hover_class
-    THEMES[theme][:hover] || THEMES[:gray][:hover]
+  def button_classes
+    [base_classes, THEMES[theme], classes].compact.join(" ")
   end
 
   def turbo_data
@@ -48,11 +36,11 @@ class ButtonComponent < ViewComponent::Base
   end
 
   def render_as_form_button?
-    button_type == :form || (button_type == :auto && [:post, :put, :delete].include?(method))
+    button_type == :form
   end
 
   def render_as_link?
-    button_type == :link || (button_type == :auto && method == :get)
+    button_type == :link
   end
 
   def ensure_theme_exists
