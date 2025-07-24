@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   mount MissionControl::Jobs::Engine, at: "/jobs" if Rails.env.development?
 
-  devise_for :users, only: [:sessions, :registrations]
-
   root "homepage#index"
+
+  devise_for :users, only: [:sessions, :registrations]
 
   resources :meals, only: [:index, :show], param: :external_id do
     collection do
-      get :browse
+      get :favourite
       get :random
       post :filter
     end

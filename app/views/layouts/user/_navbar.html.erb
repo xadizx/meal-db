@@ -8,7 +8,7 @@
         </div>
         <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
           <%= render NavLinkComponent.new(path: meals_path, text: "Meals", variant: :main) %>
-          <%= render NavLinkComponent.new(path: browse_meals_path, text: "Browse meals", variant: :main) %>
+          <%= render NavLinkComponent.new(path: favourite_meals_path, text: "Favourites", variant: :main) %>
           <%= render NavLinkComponent.new(path: random_meals_path, text: "Random meal", variant: :main, turbo: false) %>
           <%= render NavLinkComponent.new(path: reviews_path, text: "My reviews", variant: :main) %>
         </div>
@@ -25,8 +25,7 @@
             </button>
           </div>
           <div role="menu" tabindex="-1" aria-labelledby="user-menu-button" aria-orientation="vertical" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-none hidden" data-dropdown-target="menu">
-            <%= button_to "Sign out", destroy_user_session_path, method: :delete, form: { data: { turbo: false } }, class: "block px-4 py-2 text-sm text-gray-700 cursor-pointer
-" %>
+            <%= button_to "Sign out", destroy_user_session_path, method: :delete, form: { data: { turbo: false } }, class: "block px-4 py-2 text-sm text-gray-700 cursor-pointer" %>
           </div>
         </div>
       </div>
@@ -49,7 +48,7 @@
   <div id="mobile-menu" class="sm:hidden hidden" data-mobile-menu-target="menu">
     <div class="space-y-1 pb-3 pt-2">
       <%= render NavLinkComponent.new(path: meals_path, text: "Meals", variant: :mobile) %>
-      <%= render NavLinkComponent.new(path: browse_meals_path, text: "Browse meals", variant: :mobile) %>
+      <%= render NavLinkComponent.new(path: favourite_meals_path, text: "Favourites", variant: :mobile) %>
       <%= render NavLinkComponent.new(path: random_meals_path, text: "Random meal", variant: :mobile, turbo: false) %>
       <%= render NavLinkComponent.new(path: reviews_path, text: "My reviews", variant: :mobile) %>
     </div>

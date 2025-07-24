@@ -4,22 +4,19 @@ class MealsController < ApplicationController
   before_action :set_meal, only: [:show, :toggle_favourite]
 
   def index
-    @thumbnails = current_user.favourited_meals.decorate.map(&:to_thumbnail)
+    @categories = Category.ordered
+    @areas = Areas::Getter.call
   end
 
   def show
   end
 
-  def browse
-    @categories = Category.ordered
-    @areas = Areas::Getter.call
+  def favourite
+    @thumbnails = current_user.favourited_meals.decorate.map(&:to_thumbnail)
   end
 
   def filter
-    filter_type = params[:filter_type]
-    filter_value = params[:filter_value]
-
-    @meal_thumbnails = Meals::Filter.call(filter_type: filter_type, filter_value: filter_value)
+    @meal_thumbnails = Meals::Filter.call(filter_type: params[:filter_type], filter_value: params[:filter_value])
 
     render turbo_stream: turbo_stream.replace(
       "meals_results",
@@ -33,34 +30,32 @@ class MealsController < ApplicationController
   end
 
   def toggle_favourite
-    if @meal.favorited_by?(current_user)
-      favourite = current_user.favourite_meals.find_by(meal: @meal)
-      favourite&.destroy
-      favorited = false
+    favourite_meal = FavouriteMeal.find_or_initialize_by(user: current_user, meal: @meal)
+    initially_favourited = favourite_meal.persisted?
+
+    if initially_favourited
+      favourite_meal.destroy
     else
-      current_user.favourite_meals.create(meal: @meal)
-      favorited = true
+      favourite_meal.save
     end
 
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          "favorite-button",
-          partial: "meals/favorite_button",
-          locals: {meal: @meal, favorited: favorited}
-        )
-      end
-      format.html { redirect_to meal_path(@meal.external_id) }
-    end
+    render turbo_stream: [
+      turbo_stream.replace("favorite-button", partial: "meals/favorite_button", locals: {meal: @meal, favorited: !initially_favourited}),
+      flash_turbo_stream(type: :success, message: toggle_favourite_message(initially_favourited))
+    ]
   end
 
   private
 
   def set_meal
-    @meal ||= Meal.includes(:meal_ingredients, :meal_reviews).find_by_external_id(params[:external_id]) || fetch_meal
+    @meal ||= Meal.includes(:meal_ingredients, :meal_reviews, meal_reviews: :user).find_by_external_id(params[:external_id]) || fetch_meal_from_api
   end
 
-  def fetch_meal
+  def fetch_meal_from_api
     Meals::DetailsGetter.call(external_id: params[:external_id])
+  end
+
+  def toggle_favourite_message(initially_favourited)
+    "Meal #{initially_favourited ? "removed from" : "added to"} favourites!"
   end
 end
