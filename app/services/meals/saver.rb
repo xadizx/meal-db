@@ -5,11 +5,14 @@ module Meals
     end
 
     def call
+      meal = nil
+
       ActiveRecord::Base.transaction do
         meal = create_meal
-        MealIngredient.import!(parsed_meal_ingredient_attributes(meal.id))
-        meal
+        import_ingredients_for(meal)
       end
+
+      meal
     end
 
     private
@@ -30,6 +33,10 @@ module Meals
 
     def category
       Category.find_by!(name: meal_details["strCategory"])
+    end
+
+    def import_ingredients_for(meal)
+      MealIngredient.import!(parsed_meal_ingredient_attributes(meal.id))
     end
 
     def parsed_meal_ingredient_attributes(meal_id)

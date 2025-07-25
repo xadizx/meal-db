@@ -5,6 +5,7 @@ class Meal < ApplicationRecord
   has_many :meal_ingredients, inverse_of: :meal, dependent: :destroy
   has_many :meal_reviews, dependent: :destroy
   has_many :favourite_meals, dependent: :destroy
+  has_many :swipes, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
   validates :thumbnail_image_url, :instructions, :area, presence: true
@@ -27,5 +28,9 @@ class Meal < ApplicationRecord
 
   def main_ingredient
     meal_ingredients.first&.name || "Not specified"
+  end
+
+  def self.find_or_create_from_api!
+    Meals::RandomGetter.call
   end
 end

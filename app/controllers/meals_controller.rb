@@ -28,7 +28,7 @@ class MealsController < ApplicationController
   end
 
   def random
-    @meal = Meals::RandomGetter.call
+    @meal = Meal.find_or_create_from_api!
   end
 
   def toggle_favourite

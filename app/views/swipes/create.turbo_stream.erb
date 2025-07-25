@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "tinder_meal_card" do %>
+  <%= turbo_frame_tag "tinder_meal_card" do %>
+    <% if @next_meal %>
+      <%= render partial: "swipes/tinder_meal_card", locals: { meal: @next_meal } %>
+    <% else %>
+      <%= render "swipes/empty_state" %>
+    <% end %>
+  <% end %>
+<% end %> 

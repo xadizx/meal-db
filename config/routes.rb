@@ -18,5 +18,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :swipe, only: [:show, :create], controller: :swipes
+
   resources :reviews, only: [:index, :destroy]
 end

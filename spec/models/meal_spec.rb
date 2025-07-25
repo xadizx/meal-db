@@ -10,6 +10,7 @@ RSpec.describe Meal, type: :model do
     it { is_expected.to have_many(:meal_ingredients).dependent(:destroy).inverse_of(:meal) }
     it { is_expected.to have_many(:meal_reviews).dependent(:destroy) }
     it { is_expected.to have_many(:favourite_meals).dependent(:destroy) }
+    it { is_expected.to have_many(:swipes).dependent(:destroy) }
   end
 
   describe "validations" do

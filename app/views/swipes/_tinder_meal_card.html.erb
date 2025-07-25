@@ -1,0 +1,14 @@
+<div class="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6 flex flex-col items-center">
+  <img src="<%= meal.thumbnail_image_url %>" alt="<%= meal.name %>" class="rounded-lg w-full object-cover max-h-72 mb-4" />
+  <h2 class="text-xl font-bold mb-2"><%= meal.name %></h2>
+  <p class="text-gray-600 mb-2"><strong>Category:</strong> <%= meal.category.name %></p>
+  <p class="text-gray-600 mb-4"><strong>Main ingredient:</strong> <%= meal.main_ingredient %></p>
+  <div class="flex gap-4 mt-4">
+    <%= render ButtonComponent.new(theme: :primary_outline, action: swipe_path(meal_id: meal.id, preference: :disliked), method: :post, turbo: true) do %>
+      Dislike
+    <% end %>
+    <%= render ButtonComponent.new(theme: :primary, action: swipe_path(meal_id: meal.id, preference: :liked), method: :post, turbo: true) do %>
+      Like
+    <% end %>
+  </div>
+</div>

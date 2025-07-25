@@ -11,6 +11,7 @@
           <%= render NavLinkComponent.new(path: favourite_meals_path, text: "Favourites", variant: :main) %>
           <%= render NavLinkComponent.new(path: random_meals_path, text: "Random meal", variant: :main, turbo: false) %>
           <%= render NavLinkComponent.new(path: reviews_path, text: "My reviews", variant: :main) %>
+          <%= render NavLinkComponent.new(path: swipe_path, text: "Swipes", variant: :main) %>
         </div>
       </div>
       <div class="hidden sm:ml-6 sm:flex sm:items-center">
@@ -51,6 +52,7 @@
       <%= render NavLinkComponent.new(path: favourite_meals_path, text: "Favourites", variant: :mobile) %>
       <%= render NavLinkComponent.new(path: random_meals_path, text: "Random meal", variant: :mobile, turbo: false) %>
       <%= render NavLinkComponent.new(path: reviews_path, text: "My reviews", variant: :mobile) %>
+      <%= render NavLinkComponent.new(path: swipe_path, text: "Swipes", variant: :mobile) %>
     </div>
     <div class="border-t border-gray-200 pb-3 pt-4">
       <div class="flex items-center px-4">

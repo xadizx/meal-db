@@ -36,11 +36,11 @@ class ButtonComponent < ViewComponent::Base
   end
 
   def render_as_form_button?
-    button_type == :form
+    button_type == :form || (button_type == :auto && [:post, :put, :delete].include?(method))
   end
 
   def render_as_link?
-    button_type == :link
+    button_type == :link || (button_type == :auto && method == :get)
   end
 
   def ensure_theme_exists

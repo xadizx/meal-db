@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_22_235416) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_24_202209) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -65,6 +65,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_22_235416) do
     t.index ["category_id"], name: "index_meals_on_category_id"
   end
 
+  create_table "swipes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "meal_id", null: false
+    t.integer "preference", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["meal_id"], name: "index_swipes_on_meal_id"
+    t.index ["user_id", "meal_id"], name: "index_swipes_on_user_id_and_meal_id", unique: true
+    t.index ["user_id"], name: "index_swipes_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -79,4 +90,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_22_235416) do
   add_foreign_key "meal_reviews", "meals"
   add_foreign_key "meal_reviews", "users"
   add_foreign_key "meals", "categories"
+  add_foreign_key "swipes", "meals"
+  add_foreign_key "swipes", "users"
 end

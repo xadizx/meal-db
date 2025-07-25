@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "tinder_meal_card" do %>
+  <% if @meal %>
+    <%= render partial: "tinder_meal_card", locals: { meal: @meal } %>
+  <% else %>
+    <%= render "empty_state" %>
+  <% end %>
+<% end %> 
