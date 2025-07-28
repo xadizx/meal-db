@@ -6,7 +6,5 @@
 <% end %>
 <div class="py-8">
   <%= render partial: "meals/index/search_form", locals: { categories: @categories, areas: @areas } %>
-  <%= turbo_frame_tag "meals_results" do %>
-    <%= render partial: "meals/index/search_results", locals: { meal_cards: @meal_cards } %>
-  <% end %>
+  <%= render partial: "meals/index/search_results", locals: { meal_cards: @meal_cards } %>
 </div>

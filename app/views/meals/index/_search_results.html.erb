@@ -1,10 +1,12 @@
-<% if meal_cards.present? %>
-  <%= render MealThumbnailsGroupComponent.new(meal_cards: meal_cards) %>
-<% else %>
-  <div class="text-gray-500 text-center py-8">No meals found - select a different category or country.</div>
-  <div class="flex justify-center">
-    <%= render ButtonComponent.new(button_type: :link, action: random_meals_path, turbo: false) do %>
-      or check a random meal
-    <% end %>
-  </div>
+<%= turbo_frame_tag "meals_results" do %>
+  <% if meal_cards.present? %>
+    <%= render MealThumbnailsGroupComponent.new(meal_cards: meal_cards) %>
+  <% else %>
+    <div class="text-gray-500 text-center py-8">No meals found - select a different category or country.</div>
+    <div class="flex justify-center">
+      <%= render ButtonComponent.new(button_type: :link, action: random_meals_path, turbo: false) do %>
+        or check a random meal
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
