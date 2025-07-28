@@ -26,6 +26,7 @@ This project was also a learning playground — it's my first time using ViewCom
 - **Browse Meals:** Browse meals with search/filter by category, name, country (area), and ingredients.
 - **View Meal Details:** See detailed information about meals, including ingredients and instructions.
 - **Favourite Meals:** Mark/unmark meals as favourites and view your list of favourites.
+- **Tinder for Meals** Swipe through random meals one at a time, liking or skipping them.
 - **Meal Reviews:** Add, view, and delete your own reviews (rating and comment) for meals.
 - **Filter Meals:** Filter/search meals by category, area (country/region), or ingredient.
 - **Category Import:** Import meal categories from an external API, including name, thumbnail, and description.
@@ -40,7 +41,7 @@ This project was also a learning playground — it's my first time using ViewCom
 ```bash
 # Clone the project
 git clone git@github.com:xadizx/meal-db.git
-cd meal_ideas_generator
+cd meal-db
 
 # Clone and set .env file
 cp .env.example .env
