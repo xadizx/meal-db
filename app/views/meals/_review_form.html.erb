@@ -20,7 +20,7 @@
         </div>
       </div>
       <div>
-        <%= render ButtonComponent.new(data: { disable_with: "Submitting..." }) do %>
+        <%= render ButtonComponent.new(button_type: :submit, data: { disable_with: "Submitting..." }) do %>
           Submit Review
         <% end %>
       </div>
