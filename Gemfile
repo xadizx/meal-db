@@ -13,7 +13,7 @@ gem "faraday"
 gem "importmap-rails"
 gem "mission_control-jobs"
 gem "kamal", require: false
-gem "pg", "~> 1.5.9"
+gem "pg", "~> 1.6.0"
 gem "propshaft"
 gem "puma", ">= 6.6.0"
 gem "solid_cache"
