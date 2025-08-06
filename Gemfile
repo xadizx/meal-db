@@ -25,7 +25,7 @@ gem "tailwindcss-ruby"
 gem "thruster", require: false
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[windows jruby]
-gem "view_component", "4.0.0.rc4"
+gem "view_component", "4.0.1"
 
 group :development, :test do
   gem "brakeman", require: false
